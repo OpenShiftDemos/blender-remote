@@ -1,0 +1,5 @@
+*.tar.xz
+tmp
+*.blend
+*.png
+*.py

@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: blender-render-
+spec:
+  template:
+    spec:
+      containers:
+      - name: blender
+        image: quay.io/thoraxe/blender-remote-ubi8:latest
+        volumeMounts:
+          - name: config
+            mountPath: /opt/blender_data/python/
+            readOnly: true
+          - name: output
+            mountPath: /opt/blender_data/output/
+      volumes:
+        - name: config
+          configMap:
+            # Provide the name of the ConfigMap you want to mount.
+            name: blenderdata
+            # An array of keys from the ConfigMap to create as files
+            items:
+            - key: "script.py"
+              path: "script.py"
+        - name: output
+          persistentVolumeClaim:
+            claimName: blender-output
+      restartPolicy: Never
+  backoffLimit: 1
