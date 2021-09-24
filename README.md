@@ -28,6 +28,26 @@ podman run --rm \
 -e S3_ENDPOINT=http://192.168.1.235:9000 \
 -e S3_KEY=testuser_key \
 -e S3_SECRET=testuser_secret \
-quay.io/thoraxe/blender-remote-ubi8
+quay.io/openshiftdemos/blender-remote
 ```
 
+## Example Minio
+If you want to quickly test locally with Minio, you can run an ephemeral Minio
+server with the following:
+
+```
+podman run -p 9000:9000 -p 9001:9001 \
+  quay.io/minio/minio server /data --console-address ":9001"
+```
+
+The default admin is `minioadmin` with password `minioadmin` and you can use
+those values for your `S3_KEY` and `S3_SECRET`.
+
+## Example Webserver
+If you have Node.js installed, you can use the `http-server` Node module to
+serve the `examples` folder of this repo:
+
+```
+cd examples
+http-server .
+```
