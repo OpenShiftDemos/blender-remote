@@ -71,9 +71,13 @@ fi
 
 # TODO: if the render fails, abort
 
+# TODO: this is probably fragile
 export OUTPUTFILE=$(find /tmp -name "$UUID*")
+export FILENAME=$(echo $OUTPUTFILE | cut -d/ -f3)
 
 echo "Configuring minio client"
 mc alias set destination $S3_ENDPOINT $S3_KEY $S3_SECRET
 mc mb destination/$UUID
 mc cp $OUTPUTFILE destination/$UUID
+
+echo "File is located in bucket at: $UUID/$FILENAME"
