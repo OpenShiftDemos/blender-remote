@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: render-details
+data:
+  # property-like keys; each key maps to a simple value
+  blend_location: "http://192.168.1.235:8080/floss.blend"
+  render_type: "animation"
+  s3_endpoint: "http://192.168.1.235:9000"
+  s3_key: "minioadmin"
+  s3_secret: "minioadmin"

@@ -7,24 +7,32 @@ spec:
     spec:
       containers:
       - name: blender
-        image: quay.io/thoraxe/blender-remote-ubi8:latest
-        volumeMounts:
-          - name: config
-            mountPath: /opt/blender_data/python/
-            readOnly: true
-          - name: output
-            mountPath: /opt/blender_data/output/
-      volumes:
-        - name: config
-          configMap:
-            # Provide the name of the ConfigMap you want to mount.
-            name: blenderdata
-            # An array of keys from the ConfigMap to create as files
-            items:
-            - key: "script.py"
-              path: "script.py"
-        - name: output
-          persistentVolumeClaim:
-            claimName: blender-output
+        image: quay.io/openshiftdemos/blender-remote:latest
+        env:
+          - name: BLEND_LOCATION
+            valueFrom:
+              configMapKeyRef:
+                name: render-details
+                key: blend_location
+          - name: RENDER_TYPE
+            valueFrom:
+              configMapKeyRef:
+                name: render-details
+                key: render_type
+          - name: S3_ENDPOINT
+            valueFrom:
+              configMapKeyRef:
+                name: render-details
+                key: s3_endpoint
+          - name: S3_KEY
+            valueFrom:
+              configMapKeyRef:
+                name: render-details
+                key: s3_key
+          - name: S3_SECRET
+            valueFrom:
+              configMapKeyRef:
+                name: render-details
+                key: s3_secret
       restartPolicy: Never
   backoffLimit: 1

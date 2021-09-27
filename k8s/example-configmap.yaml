@@ -1,7 +1,0 @@
-apiVersion: v1
-data:
-  script.py: "import bpy\n\nbpy.context.scene.render.engine = 'CYCLES' \n\n# set the output resolution\nbpy.context.scene.render.resolution_x=800\nbpy.context.scene.render.resolution_y=600\n\n# actually render\nbpy.context.scene.render.render()\n\n# quit when we're done\nbpy.ops.wm.quit_blender()"
-kind: ConfigMap
-metadata:
- name: blenderdata
- namespace: blender
