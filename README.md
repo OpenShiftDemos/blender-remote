@@ -51,3 +51,14 @@ serve the `examples` folder of this repo:
 cd examples
 http-server .
 ```
+
+## Example Kubernetes usage
+If you have a Kubernetes cluster handy, there is an example `Job` and
+`ConfigMap` that can be used. It assumes the image hosted in Quay. Modify the
+`example-animation-configmap.yaml` or `example-image-configmap.yaml` to suit
+your environment, and then:
+
+```
+kubectl create -f k8s/example-TYPE-configmap.yaml
+kubectl create -f k8s/example-job.yaml
+```
